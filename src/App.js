@@ -11,6 +11,7 @@ const App = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [download, setDownload] = useState(false);
   const [sno, setSno] = useState("");
+  console.log(setDownload);
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
