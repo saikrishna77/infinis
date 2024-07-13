@@ -1,19 +1,16 @@
 // src/App.js
 import axios from "axios";
 import React, { useState } from "react";
-import PdfAnnotator from "./annotate";
-import PdfAnnotator2 from "./pdf-annotator";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import MyDocument from "./document";
-import fs from "fs";
 const App = () => {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState(customerdata);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedData, setSelectedData] = useState(customerdata[0]);
+  const [selectedData, setSelectedData] = useState(null);
   const [download, setDownload] = useState(false);
-  console.log(fs.readdirSync());
+  const [sno, setSno] = useState("");
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
@@ -108,7 +105,22 @@ const App = () => {
           padding: 20,
         }}
       >
-        {" "}
+        <label>S.no</label>{" "}
+        <input
+          style={{
+            padding: 10,
+            marginRight: 20,
+            borderRadius: "8px",
+            width: "250px",
+          }}
+          type="text"
+          value={sno}
+          onChange={(e) => {
+            setSno(e.target.value);
+          }}
+          placeholder="Enter S.no"
+        />
+        <label>Trader/Retail name</label>{" "}
         <input
           style={{
             padding: 10,
@@ -119,7 +131,7 @@ const App = () => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          placeholder="Enter text"
+          placeholder="Enter Trader Name"
         />
         <button
           style={{
@@ -183,9 +195,7 @@ const App = () => {
           })}
         </div>
       )}
-      <PDFViewer style={{ height: "80vh" }}>
-        <MyDocument data={selectedData} />
-      </PDFViewer>
+
       {/* <PDFViewer style={{ height: "80vh" }}>
         <EwayBill data={selectedData} />
       </PDFViewer> */}
@@ -201,7 +211,7 @@ const App = () => {
           <PDFDownloadLink
             style={styles.button}
             className="sd-btn-orange"
-            document={<MyDocument data={selectedData} />}
+            document={<MyDocument data={selectedData} sno={sno} />}
             fileName={`FORM(O)-${
               selectedData.customFields.find((item) => item.label === "FMSID")
                 .value
@@ -217,140 +227,145 @@ const App = () => {
           </PDFDownloadLink>
         </div>
       )}
+      {selectedData && (
+        <PDFViewer style={{ height: "80vh" }}>
+          <MyDocument data={selectedData} sno={sno} />
+        </PDFViewer>
+      )}
     </div>
   );
 };
 
 export default App;
 
-const customerdata = [
-  {
-    _meta: {
-      _index: "m_refrens_clients",
-      _id: "666bd83dd59a7a00209f283d",
-      _score: null,
-      sort: [1718343741073],
-    },
-    panNumber: "BYYPP4844E",
-    email: null,
-    phoneShowInInvoice: true,
-    emailShowInInvoice: false,
-    vatLabel: "VAT Number",
-    source: "CLIENT_DASHBOARD",
-    isVendor: false,
-    isBilledClient: true,
-    isClient: true,
-    isArchived: false,
-    isHardRemoved: false,
-    locale: "en-IN",
-    avgPayingDate: 0,
-    clientType: "COMPANY",
-    name: "DHANYA SRI TRADERS",
-    alias: "DHANYA SRI TRADERS",
-    country: "IN",
-    street: "H NO 1-92, NAGANPALLY, KAGNTI MANDAL",
-    city: "SANGAREDDY",
-    state: "Telangana",
-    pincode: "502287",
-    gstState: "36",
-    customFields: [
-      {
-        key: "lzvreposkbn",
-        label: "FMSID",
-        dataType: "TEXT",
-        params: {
-          showInInvoice: true,
-        },
-        value: "1169584",
-        options: [],
-      },
-      {
-        key: "p8z2fg0qxk",
-        label: "Date of  Issue",
-        dataType: "DATE",
-        params: {
-          showInInvoice: null,
-        },
-        value: "2019-06-09T18:30:00.000Z",
-        options: [],
-      },
-      {
-        key: "nas7o1ig2g",
-        label: "TYPE",
-        dataType: "SELECT",
-        params: {
-          showInInvoice: null,
-        },
-        value: "x4uqutf1f4",
-        options: [
-          {
-            label: "RETAILER",
-            value: "x4uqutf1f4",
-            isArchived: false,
-          },
-          {
-            label: "WHOLESALER",
-            value: "aclzoisa41q",
-            isArchived: false,
-          },
-        ],
-      },
-      {
-        key: "r093ynuqgrr",
-        label: "AGL NO",
-        dataType: "TEXT",
-        params: {
-          showInInvoice: null,
-        },
-        value: "SRD/02/ADA/FR/2019/23310",
-        options: [],
-      },
-      {
-        key: "v8x9059vsy",
-        label: "Date of Expiry",
-        dataType: "DATE",
-        params: {
-          showInInvoice: null,
-        },
-        value: "2027-06-07T18:30:00.000Z",
-        options: [],
-      },
-      {
-        key: "jgapmndk9ra",
-        label: "ISSUER",
-        dataType: "TEXT",
-        params: {
-          showInInvoice: null,
-        },
-        value: "ASSISTANT DIRECTOR OF AGRICULTURE NARAYANKHED",
-        options: [],
-      },
-    ],
-    gstin: "36BYYPP4844E1ZR",
-    uniqueKey: "1718343393597",
-    taxPayerType: "REG",
-    business: {
-      name: "INFINIS AGRITECH PRIVATE LIMITED",
-      alias: "INFINIS",
-      urlKey: "infinis",
-      currency: "INR",
-      updatedAt: "2024-06-14T13:53:29.924Z",
-      _id: "648c008602aa8e0012c9d2d4",
-    },
-    customFieldsOld: [],
-    files: [],
-    shippingDetails: [],
-    cc: [],
-    shareId: "49xKZCDWH0Rb9bJn4l",
-    createdAt: "2024-06-14T05:42:21.073Z",
-    updatedAt: "2024-06-14T13:53:06.021Z",
-    __v: 0,
-    balance: {
-      currency: "INR",
-    },
-    phone: "+919949560960",
-    ledgerId: "509e7bdb-6513-4410-afb6-ef7205196107",
-    _id: "666bd83dd59a7a00209f283d",
-    isPortfolioClient: false,
-  },
-];
+// const customerdata = [
+//   {
+//     _meta: {
+//       _index: "m_refrens_clients",
+//       _id: "666bd83dd59a7a00209f283d",
+//       _score: null,
+//       sort: [1718343741073],
+//     },
+//     panNumber: "BYYPP4844E",
+//     email: null,
+//     phoneShowInInvoice: true,
+//     emailShowInInvoice: false,
+//     vatLabel: "VAT Number",
+//     source: "CLIENT_DASHBOARD",
+//     isVendor: false,
+//     isBilledClient: true,
+//     isClient: true,
+//     isArchived: false,
+//     isHardRemoved: false,
+//     locale: "en-IN",
+//     avgPayingDate: 0,
+//     clientType: "COMPANY",
+//     name: "DHANYA SRI TRADERS",
+//     alias: "DHANYA SRI TRADERS",
+//     country: "IN",
+//     street: "H NO 1-92, NAGANPALLY, KAGNTI MANDAL",
+//     city: "SANGAREDDY",
+//     state: "Telangana",
+//     pincode: "502287",
+//     gstState: "36",
+//     customFields: [
+//       {
+//         key: "lzvreposkbn",
+//         label: "FMSID",
+//         dataType: "TEXT",
+//         params: {
+//           showInInvoice: true,
+//         },
+//         value: "1169584",
+//         options: [],
+//       },
+//       {
+//         key: "p8z2fg0qxk",
+//         label: "Date of  Issue",
+//         dataType: "DATE",
+//         params: {
+//           showInInvoice: null,
+//         },
+//         value: "2019-06-09T18:30:00.000Z",
+//         options: [],
+//       },
+//       {
+//         key: "nas7o1ig2g",
+//         label: "TYPE",
+//         dataType: "SELECT",
+//         params: {
+//           showInInvoice: null,
+//         },
+//         value: "x4uqutf1f4",
+//         options: [
+//           {
+//             label: "RETAILER",
+//             value: "x4uqutf1f4",
+//             isArchived: false,
+//           },
+//           {
+//             label: "WHOLESALER",
+//             value: "aclzoisa41q",
+//             isArchived: false,
+//           },
+//         ],
+//       },
+//       {
+//         key: "r093ynuqgrr",
+//         label: "AGL NO",
+//         dataType: "TEXT",
+//         params: {
+//           showInInvoice: null,
+//         },
+//         value: "SRD/02/ADA/FR/2019/23310",
+//         options: [],
+//       },
+//       {
+//         key: "v8x9059vsy",
+//         label: "Date of Expiry",
+//         dataType: "DATE",
+//         params: {
+//           showInInvoice: null,
+//         },
+//         value: "2027-06-07T18:30:00.000Z",
+//         options: [],
+//       },
+//       {
+//         key: "jgapmndk9ra",
+//         label: "ISSUER",
+//         dataType: "TEXT",
+//         params: {
+//           showInInvoice: null,
+//         },
+//         value: "ASSISTANT DIRECTOR OF AGRICULTURE NARAYANKHED",
+//         options: [],
+//       },
+//     ],
+//     gstin: "36BYYPP4844E1ZR",
+//     uniqueKey: "1718343393597",
+//     taxPayerType: "REG",
+//     business: {
+//       name: "INFINIS AGRITECH PRIVATE LIMITED",
+//       alias: "INFINIS",
+//       urlKey: "infinis",
+//       currency: "INR",
+//       updatedAt: "2024-06-14T13:53:29.924Z",
+//       _id: "648c008602aa8e0012c9d2d4",
+//     },
+//     customFieldsOld: [],
+//     files: [],
+//     shippingDetails: [],
+//     cc: [],
+//     shareId: "49xKZCDWH0Rb9bJn4l",
+//     createdAt: "2024-06-14T05:42:21.073Z",
+//     updatedAt: "2024-06-14T13:53:06.021Z",
+//     __v: 0,
+//     balance: {
+//       currency: "INR",
+//     },
+//     phone: "+919949560960",
+//     ledgerId: "509e7bdb-6513-4410-afb6-ef7205196107",
+//     _id: "666bd83dd59a7a00209f283d",
+//     isPortfolioClient: false,
+//   },
+// ];

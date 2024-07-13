@@ -152,16 +152,17 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = ({ data }) => {
-  const dealer = data.customFields.find((item) => item.label === "TYPE");
-  const aglNo = data?.customFields.find((item) => item.label === "AGL NO");
-  const dealerDOE = data?.customFields.find(
+const MyDocument = ({ data, sno }) => {
+  if (data === null || !data) return;
+  const dealer = data.customFields?.find((item) => item.label === "TYPE");
+  const aglNo = data?.customFields?.find((item) => item.label === "AGL NO");
+  const dealerDOE = data?.customFields?.find(
     (item) => item.label === "Date of Expiry"
   );
-  const dealerDOI = data.customFields.find(
+  const dealerDOI = data.customFields?.find(
     (item) => item.label === "Date of Issue"
   );
-  const dealerIssuer = data?.customFields.find(
+  const dealerIssuer = data?.customFields?.find(
     (item) => item.label === "ISSUER"
   );
   return (
@@ -213,7 +214,7 @@ const MyDocument = ({ data }) => {
             <Text
               style={{ fontSize: "11px", width: "33.33%", fontWeight: "bold" }}
             >
-              S.no: 88
+              S.no: {sno}
             </Text>
             <Text
               style={{
@@ -456,8 +457,8 @@ const MyDocument = ({ data }) => {
             </View>
             <View style={{ ...styles.tableCol, borderRight: 0 }}>
               <Text style={styles.tableCell}>
-                {dealerDOE?.value &&
-                  moment(dealerDOE?.value).format("DD-MM-YYYY")}
+                {dealerDOI?.value &&
+                  moment(dealerDOI?.value).format("DD-MM-YYYY")}
               </Text>
             </View>
           </View>
