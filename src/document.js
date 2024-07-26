@@ -47,6 +47,14 @@ const chemlist = [
     title: "SPIC Limited",
     desc: `Urea 46.2% Indigenous, Urea 46% Pool, DAP 18:46.0, DAP (Imp) 18:46:0, MOP. 20:20:0.13 (ind) 17:17:17 (ind) [SSP 16% Powder. Nem Coard Urea 46. 2%, Nem Coated Urea (Pool) 46%"}]`,
   },
+  {
+    title: "National Fertilizers Limited",
+    desc: "Urea 46%, Neem Coated Urea, MOP (Imported), DAP (Imported) RFCL Urea. Organic Potassium",
+  },
+  {
+    title: "G.S.FC. Limited",
+    data: "Ammonium Sulphate, Imported DAP, W/S NPK 19:19:19, 17:44:0, Potassium Sulphate 0:0:50, MAP 12:61:0, Mono Potassium Posphate 0:52:34, Potassium Nitrate 13:0:45. Calcium Nitrate, Organic Mop",
+  },
 ];
 
 Font.register({
@@ -125,6 +133,12 @@ const styles = StyleSheet.create({
   tableCell: {
     margin: "4px",
     fontSize: 9,
+
+    fontWeight: 600,
+  },
+  bottomtableCell: {
+    margin: "4px",
+    fontSize: 8,
 
     fontWeight: 600,
   },
@@ -616,7 +630,9 @@ const MyDocument = ({ data, sno }) => {
                       borderBottom: index === 7 ? "0" : "1px",
                     }}
                   >
-                    <Text style={styles.tableCell}>{index + 1}</Text>
+                    <Text style={{ ...styles.bottomtableCell }}>
+                      {index + 1}
+                    </Text>
                   </View>
                   <View
                     style={{
@@ -625,7 +641,9 @@ const MyDocument = ({ data, sno }) => {
                       borderBottom: index === 7 ? "0" : "1px",
                     }}
                   >
-                    <Text style={styles.tableCell}>{item.title}</Text>
+                    <Text style={{ ...styles.bottomtableCell }}>
+                      {item.title}
+                    </Text>
                   </View>
                   <View
                     style={{
@@ -635,7 +653,12 @@ const MyDocument = ({ data, sno }) => {
                       borderRight: "0",
                     }}
                   >
-                    <Text style={{ ...styles.tableCell, lineHeight: "1.8px" }}>
+                    <Text
+                      style={{
+                        ...styles.bottomtableCell,
+                        lineHeight: "1.8px",
+                      }}
+                    >
                       {item.desc}{" "}
                     </Text>
                   </View>
