@@ -49,11 +49,11 @@ const chemlist = [
   },
   {
     title: "National Fertilizers Limited",
-    desc: "Urea 46%, Neem Coated Urea, MOP (Imported), DAP (Imported) RFCL Urea. Organic Potassium",
+    desc: `Urea 46%, Neem Coated Urea, MOP (Imported), DAP (Imported) RFCL Urea. Organic Potassium`,
   },
   {
-    title: "G.S.FC. Limited",
-    data: "Ammonium Sulphate, Imported DAP, W/S NPK 19:19:19, 17:44:0, Potassium Sulphate 0:0:50, MAP 12:61:0, Mono Potassium Posphate 0:52:34, Potassium Nitrate 13:0:45. Calcium Nitrate, Organic Mop",
+    title: "G.S.F.C. Limited",
+    desc: `Ammonium Sulphate, Imported DAP, W/S NPK 19:19:19, 17:44:0, Potassium Sulphate 0:0:50, MAP 12:61:0, Mono Potassium Posphate 0:52:34, Potassium Nitrate 13:0:45. Calcium Nitrate, Organic Mop`,
   },
 ];
 
@@ -139,14 +139,12 @@ const styles = StyleSheet.create({
   bottomtableCell: {
     margin: "4px",
     fontSize: 8,
-
     fontWeight: 600,
   },
   tableCellMultiple: {
     margin: "4px 0px",
     paddingLeft: "10px",
     fontSize: 9,
-
     fontWeight: 600,
   },
 
@@ -291,8 +289,8 @@ const MyDocument = ({ data, sno }) => {
                   fontWeight: 600,
                 }}
               >
-                11-5-155, 2nd Floor, Bhavani Nager, Moosapet, Hyderabad,{"\n"}
-                Medchal - Malkajiri, Telangana-500018
+                11-5-155, 2nd Floor, Bhavani Nager, Moosapet,{"\n"}Hyderabad,
+                Medchal - Malkajiri,{"\n"}Telangana-500018
               </Text>
             </View>
           </View>
@@ -370,7 +368,8 @@ const MyDocument = ({ data, sno }) => {
               style={{ ...styles.tableCol, borderBottom: "0", borderRight: 0 }}
             >
               <Text style={styles.tableCell}>
-                COMMISSIONER AND DIRECTOR OF AGRICULTURE, TELANGANA, HYDERABAD
+                COMMISSIONER AND DIRECTOR OF AGRICULTURE, <br />
+                TELANGANA, HYDERABAD
               </Text>
             </View>
           </View>
@@ -627,7 +626,7 @@ const MyDocument = ({ data, sno }) => {
                     style={{
                       ...styles.tableCol1,
                       width: "6%",
-                      borderBottom: index === 7 ? "0" : "1px",
+                      borderBottom: index === 9 ? "0" : "1px",
                     }}
                   >
                     <Text style={{ ...styles.bottomtableCell }}>
@@ -638,7 +637,7 @@ const MyDocument = ({ data, sno }) => {
                     style={{
                       ...styles.tableCol1,
                       width: "47%",
-                      borderBottom: index === 7 ? "0" : "1px",
+                      borderBottom: index === 9 ? "0" : "1px",
                     }}
                   >
                     <Text style={{ ...styles.bottomtableCell }}>
@@ -649,7 +648,7 @@ const MyDocument = ({ data, sno }) => {
                     style={{
                       ...styles.tableCol1,
                       width: "47%",
-                      borderBottom: index === 7 ? "0" : "1px",
+                      borderBottom: index === 9 ? "0" : "1px",
                       borderRight: "0",
                     }}
                   >
